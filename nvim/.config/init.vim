@@ -22,6 +22,9 @@ Plug 'jaredgorski/spacecamp'
 Plug 'christophermca/meta5'
 Plug 'doums/darcula'
 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 " CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
@@ -67,18 +70,14 @@ set list
 set listchars=tab:▸\ ,trail:·
 " Update to make git gutter faster
 set updatetime=100
+" Single status line
+set laststatus=3
 
 " Grubbox theme
-" colorscheme gruvbox 
+colorscheme gruvbox 
 
-colorscheme dracula
-" colorscheme spacecamp
-" colorscheme meta5
+" colorscheme dracula
 
-" Ayu theme
-" colorscheme ayu
-" let ayucolor="mirage"
-"oucolorscheme darcula
 
 " transparent background
 hi Normal guibg=NONE ctermbg=NONE
@@ -132,6 +131,13 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
+
+
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " LSP ---------------------------------------
 set completeopt=menuone,noinsert,noselect
