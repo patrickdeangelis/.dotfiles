@@ -105,6 +105,12 @@ if has('nvim')
   tnoremap <leader><Esc> <Esc>
 endif
 
+" Global copy/paste binding
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
+
 " Gruvbox theme
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_invert_selection = '0'
