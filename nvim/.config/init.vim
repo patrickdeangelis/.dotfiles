@@ -16,8 +16,9 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'eslint/eslint'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'github/copilot.vim'
 
-Plug 'dracula/vim', { 'name': 'dracula' }
+Plug 'haishanh/night-owl.vim'
 Plug 'jaredgorski/spacecamp'
 Plug 'christophermca/meta5'
 Plug 'doums/darcula'
@@ -27,8 +28,10 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-call plug#end()
 
+" LSP
+Plug 'nvim-treesitter/nvim-treesitter'
+call plug#end()
 let mapleader=" "
 let g:blamer_enabled = 1
 
@@ -37,6 +40,9 @@ autocmd TermOpen * setlocal nonumber norelativenumber
 " HTML highlight for .ejs
 au BufNewFile,BufRead *.ejs set filetype=html
 
+set encoding=UTF-8
+set guifont=Fira\ Code:h13
+
 if(has("termguicolors"))
 	set termguicolors
 endif
@@ -44,7 +50,6 @@ endif
 nmap <leader>ve :edit ~/.config/nvim/init.vim<cr>
 
 syntax enable
-set guifont=DroidSansMono\ Nerd\ Font\ 11
 set autoread
 set number
 set relativenumber
@@ -74,16 +79,14 @@ set updatetime=100
 set laststatus=3
 
 " Grubbox theme
-colorscheme gruvbox 
-
-" colorscheme dracula
-
+"colorscheme night-owl
+colorscheme gruvbox
 
 " transparent background
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 
+map <C-S-E> :Ex<CR>
 map <C-b> :NERDTreeToggle<CR>
-map <C-e> :Ex<CR>
 nnoremap <silent> <leader>h :wincmd h <CR>
 nnoremap <silent> <leader>j :wincmd j <CR>
 nnoremap <silent> <leader>k :wincmd k <CR>
@@ -91,6 +94,12 @@ nnoremap <silent> <leader>l :wincmd l <CR>
 nnoremap <silent> <leader>t :wincmd n <bar> :wincmd J <bar> :resize 10 <bar> :set wfh <bar> :terminal<CR>
 nnoremap <silent> <leader>pv :wincmd v <bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <silent> <C-n> :tabnew <CR>
+
+" Global copy/paste binding
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
 
 " FZF key remap
 " find files
@@ -104,12 +113,6 @@ if has('nvim')
   tnoremap <C-v><Esc> <Esc>
   tnoremap <leader><Esc> <Esc>
 endif
-
-" Global copy/paste binding
-noremap <Leader>y "*y
-noremap <Leader>p "*p
-noremap <Leader>Y "+y
-noremap <Leader>P "+p
 
 " Gruvbox theme
 let g:gruvbox_contrast_dark = 'hard'
@@ -189,3 +192,5 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
