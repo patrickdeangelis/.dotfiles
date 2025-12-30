@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Ensure Go is installed
+if ! command -v go &> /dev/null; then
+    echo "Go is not installed. Installing via Homebrew..."
+    if ! command -v brew &> /dev/null; then
+        echo "Homebrew is not installed. Installing..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    brew install go
+fi
+
+# Run the CLI
+# We use 'go run' to compile and run on the fly.
+# On a slow machine, 'go build' might be better, but 'go run' is convenient.
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DIR/cli" && go run . "$@"
