@@ -13,13 +13,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
-vim.keymap.set("n", "<leader>vwm", function()
-    require("vim-with-me").StartVimWithMe()
-end)
-vim.keymap.set("n", "<leader>svwm", function()
-    require("vim-with-me").StopVimWithMe()
-end)
-
 -- delete the element and sent to void register, so you don't lose the element that you're pasting
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
@@ -45,6 +38,9 @@ vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<leader>bn", "<cmd>bnext<CR>")
+vim.keymap.set("n", "<leader>bp", "<cmd>bprev<CR>")
+vim.keymap.set("n", "<leader>nt", "<cmd>Vexplore<CR>")
 
 -- replace current word
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -60,3 +56,10 @@ end)
 -- fold code blocks
 vim.api.nvim_set_keymap('n', 'zf', [[<Cmd>normal! Vzf<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'zo', [[<Cmd>normal! zo<CR>]], { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true, silent = true })
+    end,
+})

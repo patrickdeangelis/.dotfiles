@@ -5,6 +5,8 @@ vim.o.ttimeoutlen = 50
 vim.g['airline#extensions#hunks#enabled'] = 0
 vim.g['airline#extensions#branch#enabled'] = 1
 vim.g['airline#extensions#tabline#enabled'] = 1
+vim.g['airline#extensions#tabline#show_buffers'] = 1
+vim.g['airline#extensions#tabline#show_tabs'] = 0
 vim.g['airline#extensions#tabline#formatter'] = 'default'
 
 -- Airline symbols
@@ -13,4 +15,3 @@ if not vim.g.airline_symbols then
 end
 
 -- vim.g.airline_symbols.space = '\ua0'
-

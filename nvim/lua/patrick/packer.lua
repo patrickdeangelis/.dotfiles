@@ -9,24 +9,22 @@ return require('packer').startup(function(use)
   use({ 'rose-pine/neovim', as = 'rose-pine' })
 
   use({ 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'} })
-  use 'nvim-treesitter/playground'
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
 
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
-    requires = {
-      {'williamboman/mason.nvim'},
-      {'williamboman/mason-lspconfig.nvim'},
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'L3MON4D3/LuaSnip'},
-    }
-  }
+  -- LSP Support
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
+  use 'neovim/nvim-lspconfig'
+
+  -- Autocompletion
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
+
   use 'airblade/vim-gitgutter'
   use {
     "folke/todo-comments.nvim",
@@ -41,9 +39,10 @@ return require('packer').startup(function(use)
       },
   })
   use 'ray-x/guihua.lua'
-  use 'github/copilot.vim'
-  use 'mattn/vim-goimports'
-  use 'gpanders/editorconfig.nvim'
+  use {
+    'iamcco/markdown-preview.nvim',
+    run = function() vim.fn['mkdp#util#install']() end,
+  }
   use {
       "windwp/nvim-autopairs",
       config = function() require("nvim-autopairs").setup {} end
