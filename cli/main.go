@@ -17,6 +17,8 @@ func main() {
 
 	updateCmd := flag.NewFlagSet("update", flag.ExitOnError)
 	cleanCmd := flag.NewFlagSet("clean", flag.ExitOnError)
+	syncCmd := flag.NewFlagSet("sync", flag.ExitOnError)
+	editCmd := flag.NewFlagSet("edit", flag.ExitOnError)
 
 	switch os.Args[1] {
 	case "install":
@@ -37,6 +39,18 @@ func main() {
 			fmt.Printf("Error during clean: %v\n", err)
 			os.Exit(1)
 		}
+	case "sync":
+		syncCmd.Parse(os.Args[2:])
+		if err := runSync(); err != nil {
+			fmt.Printf("Error during sync: %v\n", err)
+			os.Exit(1)
+		}
+	case "edit":
+		editCmd.Parse(os.Args[2:])
+		if err := runEdit(); err != nil {
+			fmt.Printf("Error during edit: %v\n", err)
+			os.Exit(1)
+		}
 	case "help":
 		printUsage()
 	default:
@@ -52,5 +66,7 @@ func printUsage() {
 	fmt.Println("  install    Bootstrap the environment (install packages, link dotfiles)")
 	fmt.Println("  update     Update dotfiles and packages")
 	fmt.Println("  clean      Remove linked dotfiles")
+	fmt.Println("  sync       Sync dotfiles (restow)")
+	fmt.Println("  edit       Select and edit a dotfile")
 	fmt.Println("  help       Show this help message")
 }
