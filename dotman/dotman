@@ -14,4 +14,8 @@ fi
 # We use 'go run' to compile and run on the fly.
 # On a slow machine, 'go build' might be better, but 'go run' is convenient.
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -z "${DOTFILES}" ]]; then
+    DOTFILES="$(cd "$DIR/.." && pwd)"
+    export DOTFILES
+fi
 cd "$DIR" && go run . "$@"

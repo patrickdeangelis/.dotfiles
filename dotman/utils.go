@@ -196,10 +196,32 @@ func getDotfilesDir() (string, error) {
 		return defaultPath, nil
 	}
 
-	// Fallback: use current working directory
+	// Try to detect repo root from current working directory.
 	wd, err := os.Getwd()
 	if err != nil {
 		return "", err
 	}
+	wd, err = filepath.Abs(wd)
+	if err != nil {
+		return "", err
+	}
+	for i := 0; i < 4; i++ {
+		if dirExists(filepath.Join(wd, "dotfiles")) && dirExists(filepath.Join(wd, "dotman")) {
+			return wd, nil
+		}
+		parent := filepath.Dir(wd)
+		if parent == wd {
+			break
+		}
+		wd = parent
+	}
 	return wd, nil
+}
+
+func dirExists(path string) bool {
+	info, err := os.Stat(path)
+	if err != nil {
+		return false
+	}
+	return info.IsDir()
 }
