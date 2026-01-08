@@ -14,4 +14,4 @@ fi
 # We use 'go run' to compile and run on the fly.
 # On a slow machine, 'go build' might be better, but 'go run' is convenient.
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$DIR/cli" && go run . "$@"
+cd "$DIR" && go run . "$@"

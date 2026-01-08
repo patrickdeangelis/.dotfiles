@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 var packages = []string{
@@ -57,23 +58,24 @@ func stowDotfiles(pkgs []string) error {
 	if err != nil {
 		return err
 	}
+	configDir := filepath.Join(dotfilesDir, "dotfiles")
 
 	// Change to dotfiles directory
-	if err := os.Chdir(dotfilesDir); err != nil {
-		return fmt.Errorf("failed to change dir to %s: %w", dotfilesDir, err)
+	if err := os.Chdir(configDir); err != nil {
+		return fmt.Errorf("failed to change dir to %s: %w", configDir, err)
 	}
 
 	for _, pkg := range pkgs {
 		fmt.Printf("Stowing %s...\n", pkg)
 		// Unstow first (clean slate) - ignore error if it wasn't stowed
 		_ = runCommand("stow", "-D", pkg)
-		
+
 		// Stow
 		if err := runCommand("stow", pkg); err != nil {
 			return fmt.Errorf("failed to stow %s: %w", pkg, err)
 		}
 	}
-	
+
 	// Try to return to original dir, though not strictly necessary for CLI exit
 	return nil
 }

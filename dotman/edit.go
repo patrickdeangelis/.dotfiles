@@ -16,7 +16,8 @@ func runEdit() error {
 		return err
 	}
 
-	if err := os.Chdir(dotfilesDir); err != nil {
+	configDir := filepath.Join(dotfilesDir, "dotfiles")
+	if err := os.Chdir(configDir); err != nil {
 		return fmt.Errorf("failed to chdir: %w", err)
 	}
 
@@ -49,7 +50,7 @@ func runEdit() error {
 
 		if err := cmd.Run(); err != nil {
 			// If user cancels (Ctrl-C/Esc), fzf returns non-zero
-			return nil 
+			return nil
 		}
 		selectedFile = strings.TrimSpace(out.String())
 	} else {

@@ -7,13 +7,13 @@ Personal dotfiles repository managed with GNU Stow and a small Go CLI.
 Run the installer from the repo root:
 
 ```sh
-./setup_dotfiles_cli.sh
+./dotman/install_dotman.sh
 ```
 
 This will:
-- install `stow` if missing (macOS or Linux)
-- stow the folders listed in `STOW_FOLDERS` (default: `nvim,tmux,zsh`)
-- add the alias `sd` to `~/.zshrc` for easy re-runs
+- install Go if missing (macOS or Linux)
+- make the `dotman` wrapper executable
+- add the alias `dotman` to `~/.zshrc`
 
 Reload your shell or source the file:
 
@@ -24,15 +24,15 @@ source ~/.zshrc
 Then you can run:
 
 ```sh
-sd
+dotman
 ```
 
 ## CLI usage
 
-The CLI is available via the `dotman` wrapper:
+The CLI is available via the wrapper in `dotman/`:
 
 ```sh
-./dotman <command>
+./dotman/dotman <command>
 ```
 
 Commands:
@@ -46,17 +46,31 @@ Commands:
 Examples:
 
 ```sh
-./dotman sync-home
-./dotman push -m "sync home configs"
+./dotman/dotman sync-home
+./dotman/dotman push -m "sync home configs"
 ```
 
 ## Environment variables
 
 - `DOTFILES`: path to the dotfiles repo (defaults to script directory)
-- `STOW_FOLDERS`: comma-separated list of stow packages
 
-Example:
+## Layout
+
+- `dotman/` contains the CLI source
+- `dotfiles/` contains stow packages and config files
+- `dotfiles/mapping.yml` documents where each package maps in the OS
+
+## Tests
+
+Unit tests:
 
 ```sh
-STOW_FOLDERS="nvim,tmux" ./setup_dotfiles_cli.sh
+cd dotman
+go test ./...
+```
+
+E2E (Docker):
+
+```sh
+./dotman/e2e/run.sh
 ```

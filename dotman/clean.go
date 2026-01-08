@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func runClean() error {
@@ -13,8 +14,9 @@ func runClean() error {
 		return err
 	}
 
-	if err := os.Chdir(dotfilesDir); err != nil {
-		return fmt.Errorf("failed to change dir to %s: %w", dotfilesDir, err)
+	configDir := filepath.Join(dotfilesDir, "dotfiles")
+	if err := os.Chdir(configDir); err != nil {
+		return fmt.Errorf("failed to change dir to %s: %w", configDir, err)
 	}
 
 	for _, pkg := range stowPackages {

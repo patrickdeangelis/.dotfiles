@@ -19,6 +19,7 @@ func runSyncHome() error {
 	if err != nil {
 		return err
 	}
+	configDir := filepath.Join(dotfilesDir, "dotfiles")
 
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -26,26 +27,26 @@ func runSyncHome() error {
 	}
 
 	lazySrc := filepath.Join(home, ".config", "nvim-lazy")
-	lazyDst := filepath.Join(dotfilesDir, "lazy-vim")
+	lazyDst := filepath.Join(configDir, "lazy-vim")
 	if err := syncDir(lazySrc, lazyDst, []string{".git"}, true); err != nil {
 		return err
 	}
 
 	tmuxConfSrc := filepath.Join(home, ".tmux.conf")
-	tmuxConfDst := filepath.Join(dotfilesDir, "tmux", ".tmux.conf")
+	tmuxConfDst := filepath.Join(configDir, "tmux", ".tmux.conf")
 	if err := syncFile(tmuxConfSrc, tmuxConfDst); err != nil {
 		return err
 	}
 
 	tmuxDirSrc := filepath.Join(home, ".tmux")
-	tmuxDirDst := filepath.Join(dotfilesDir, "tmux", ".tmux")
+	tmuxDirDst := filepath.Join(configDir, "tmux", ".tmux")
 	tmuxDirExcludes := []string{"plugins", ".tmux.conf"}
 	if err := syncDir(tmuxDirSrc, tmuxDirDst, tmuxDirExcludes, true); err != nil {
 		return err
 	}
 
 	tmuxNestedConfSrc := filepath.Join(home, ".tmux", ".tmux.conf")
-	tmuxNestedConfDst := filepath.Join(dotfilesDir, "tmux", ".tmux", ".tmux.conf")
+	tmuxNestedConfDst := filepath.Join(configDir, "tmux", ".tmux", ".tmux.conf")
 	if err := syncFile(tmuxNestedConfSrc, tmuxNestedConfDst); err != nil {
 		return err
 	}
