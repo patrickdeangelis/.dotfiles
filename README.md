@@ -27,6 +27,13 @@ Then you can run:
 dotman
 ```
 
+If `dotman` is not found, rerun the installer and reload your shell:
+
+```sh
+./dotman/install_dotman.sh
+source ~/.zshrc
+```
+
 ## CLI usage
 
 The CLI is available via the wrapper in `dotman/`:
