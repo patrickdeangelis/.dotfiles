@@ -39,7 +39,14 @@ func runSyncHome() error {
 
 	tmuxDirSrc := filepath.Join(home, ".tmux")
 	tmuxDirDst := filepath.Join(dotfilesDir, "tmux", ".tmux")
-	if err := syncDir(tmuxDirSrc, tmuxDirDst, []string{"plugins"}, true); err != nil {
+	tmuxDirExcludes := []string{"plugins", ".tmux.conf"}
+	if err := syncDir(tmuxDirSrc, tmuxDirDst, tmuxDirExcludes, true); err != nil {
+		return err
+	}
+
+	tmuxNestedConfSrc := filepath.Join(home, ".tmux", ".tmux.conf")
+	tmuxNestedConfDst := filepath.Join(dotfilesDir, "tmux", ".tmux", ".tmux.conf")
+	if err := syncFile(tmuxNestedConfSrc, tmuxNestedConfDst); err != nil {
 		return err
 	}
 
