@@ -18,6 +18,9 @@ func main() {
 	updateCmd := flag.NewFlagSet("update", flag.ExitOnError)
 	cleanCmd := flag.NewFlagSet("clean", flag.ExitOnError)
 	syncCmd := flag.NewFlagSet("sync", flag.ExitOnError)
+	syncHomeCmd := flag.NewFlagSet("sync-home", flag.ExitOnError)
+	pushCmd := flag.NewFlagSet("push", flag.ExitOnError)
+	pushMessage := pushCmd.String("m", "", "Commit message")
 	editCmd := flag.NewFlagSet("edit", flag.ExitOnError)
 
 	switch os.Args[1] {
@@ -45,6 +48,18 @@ func main() {
 			fmt.Printf("Error during sync: %v\n", err)
 			os.Exit(1)
 		}
+	case "sync-home":
+		syncHomeCmd.Parse(os.Args[2:])
+		if err := runSyncHome(); err != nil {
+			fmt.Printf("Error during sync-home: %v\n", err)
+			os.Exit(1)
+		}
+	case "push":
+		pushCmd.Parse(os.Args[2:])
+		if err := runPush(*pushMessage); err != nil {
+			fmt.Printf("Error during push: %v\n", err)
+			os.Exit(1)
+		}
 	case "edit":
 		editCmd.Parse(os.Args[2:])
 		if err := runEdit(); err != nil {
@@ -67,6 +82,8 @@ func printUsage() {
 	fmt.Println("  update     Update dotfiles and packages")
 	fmt.Println("  clean      Remove linked dotfiles")
 	fmt.Println("  sync       Sync dotfiles (restow)")
+	fmt.Println("  sync-home  Sync home config into the dotfiles repo")
+	fmt.Println("  push       Commit and push dotfiles changes")
 	fmt.Println("  edit       Select and edit a dotfile")
 	fmt.Println("  help       Show this help message")
 }
