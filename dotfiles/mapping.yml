@@ -5,3 +5,4 @@ tmux:
   conf: ~/.tmux.conf
   nested_conf: ~/.tmux/.tmux.conf
 lazy-vim: ~/.config/nvim-lazy
+aerospace: ~/.config
