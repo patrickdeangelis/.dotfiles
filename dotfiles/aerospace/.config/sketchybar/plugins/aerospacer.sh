@@ -8,6 +8,8 @@ if [ -z "$focused" ]; then
   focused="$(aerospace list-workspaces --focused 2>/dev/null)"
 fi
 
+visible="$(aerospace list-workspaces --all --format '%{workspace} %{workspace-is-visible}' 2>/dev/null | awk -v w="$workspace" '$1 == w { print $2; exit }')"
+
 windows_count="$(aerospace list-windows --workspace "$workspace" 2>/dev/null | wc -l | tr -d ' ')"
 has_windows=false
 if [ -n "$windows_count" ] && [ "$windows_count" -gt 0 ]; then
@@ -25,6 +27,12 @@ if [ "$workspace" = "$focused" ]; then
                          label.color=$WHITE \
                          drawing=on \
                          icon.color=$WHITE
+elif [ "$visible" = "true" ]; then
+  sketchybar --set "$NAME" background.drawing=on \
+                         background.color=$COLOR_PILL \
+                         label.color=$DIM_WHITE \
+                         drawing=on \
+                         icon.color=$DIM_WHITE
 else
   sketchybar --set "$NAME" background.drawing=off \
                          label.color=$DIM_WHITE \

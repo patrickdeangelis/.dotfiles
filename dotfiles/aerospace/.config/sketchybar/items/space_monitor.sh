@@ -28,6 +28,7 @@ add_space_item() {
   sid="$1"
   mid="$2"
   focused="$3"
+  visible="$4"
   "$sketchybar_bin" --add item "space.$sid" left                                \
                     --subscribe "space.$sid" aerospace_workspace_change         \
                     --set "space.$sid"                                          \
@@ -44,6 +45,11 @@ add_space_item() {
                       background.color=$COLOR_PILL_STRONG \
                       label.color=$WHITE \
                       icon.color=$WHITE
+  elif [ "$visible" = "true" ]; then
+    "$sketchybar_bin" --set "space.$sid" background.drawing=on \
+                      background.color=$COLOR_PILL \
+                      label.color=$DIM_WHITE \
+                      icon.color=$DIM_WHITE
   else
     "$sketchybar_bin" --set "space.$sid" background.drawing=off \
                       label.color=$DIM_WHITE \
@@ -53,8 +59,8 @@ add_space_item() {
 
 refresh_spaces() {
   show_empty="${SHOW_EMPTY_WORKSPACES:-false}"
-  "$aerospace_bin" list-workspaces --all --format '%{workspace} %{monitor-id} %{workspace-is-focused}' | \
-    while read -r sid mid focused; do
+  "$aerospace_bin" list-workspaces --all --format '%{workspace} %{monitor-id} %{workspace-is-focused} %{workspace-is-visible}' | \
+    while read -r sid mid focused visible; do
       if [ -z "$sid" ]; then
         continue
       fi
@@ -77,7 +83,7 @@ refresh_spaces() {
       fi
 
       if [ "$include" = "true" ]; then
-        add_space_item "$sid" "$mid" "$focused"
+        add_space_item "$sid" "$mid" "$focused" "$visible"
       fi
     done
 }
@@ -94,8 +100,8 @@ done
 MONITOR_IDS=$($aerospace_bin list-monitors | awk '{print $1}')
 
 for mid in $MONITOR_IDS; do
-  "$aerospace_bin" list-workspaces --monitor "$mid" --format '%{workspace} %{workspace-is-focused}' | \
-    while read -r sid focused; do
+  "$aerospace_bin" list-workspaces --monitor "$mid" --format '%{workspace} %{workspace-is-focused} %{workspace-is-visible}' | \
+    while read -r sid focused visible; do
       show_empty="${SHOW_EMPTY_WORKSPACES:-false}"
       include="false"
       if [ "$show_empty" = "true" ] || [ "$focused" = "true" ]; then
@@ -108,7 +114,7 @@ for mid in $MONITOR_IDS; do
       fi
 
       if [ "$include" = "true" ]; then
-        add_space_item "$sid" "$mid" "$focused"
+        add_space_item "$sid" "$mid" "$focused" "$visible"
       fi
     done
 done
