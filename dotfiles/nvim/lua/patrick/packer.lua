@@ -26,6 +26,9 @@ return require('packer').startup(function(use)
   use 'saadparwaiz1/cmp_luasnip'
 
   use 'airblade/vim-gitgutter'
+  use 'tpope/vim-dadbod'
+  use 'kristijanhusak/vim-dadbod-ui'
+  use 'kristijanhusak/vim-dadbod-completion'
   use {
     "folke/todo-comments.nvim",
     requires = { "nvim-lua/plenary.nvim" },
