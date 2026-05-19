@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
   }
   use({ 'rose-pine/neovim', as = 'rose-pine' })
 
-  use({ 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'} })
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
 
@@ -49,5 +49,16 @@ return require('packer').startup(function(use)
   use {
       "windwp/nvim-autopairs",
       config = function() require("nvim-autopairs").setup {} end
+  }
+  use {
+      'antonk52/denty.nvim',
+      config = function() require('denty').setup {} end
+  }
+  use {
+    "sotte/presenting.nvim",
+    cmd = { "Presenting" },
+    config = function()
+      require("presenting").setup({})
+    end,
   }
 end)

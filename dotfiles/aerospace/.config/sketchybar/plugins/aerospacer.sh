@@ -16,7 +16,8 @@ if [ -n "$windows_count" ] && [ "$windows_count" -gt 0 ]; then
   has_windows=true
 fi
 
-if [ "$workspace" != "$focused" ] && [ "$has_windows" = "false" ]; then
+show_empty="${SHOW_EMPTY_WORKSPACES:-false}"
+if [ "$show_empty" != "true" ] && [ "$workspace" != "$focused" ] && [ "$has_windows" = "false" ]; then
   sketchybar --set "$NAME" drawing=off
   exit 0
 fi

@@ -425,6 +425,9 @@ function icon_map() {
   "WhatsApp")
     icon_result=":whats_app:"
     ;;
+  "ChatGPT")
+    icon_result=":brain:"
+    ;;
   *)
     icon_result=":default:"
     ;;

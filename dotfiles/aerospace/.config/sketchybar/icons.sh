@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+
+# General Icons
+LOADING=􀖇
+APPLE=
+PREFERENCES=􀺽
+ACTIVITY=􀒓
+LOCK=􀒳
+MAIL=􀍜
+MAIL_OPEN=􀍜
+BELL=􀋚
+BELL_DOT=􀝗
+
+# Git Icons
+GIT_ISSUE=􀍷
+GIT_DISCUSSION=􀒤
+GIT_PULL_REQUEST=􀙡
+GIT_COMMIT=􀡚
+GIT_INDICATOR=􀂓
+
+# Spotify Icons
+SPOTIFY_BACK=􀊎
+SPOTIFY_PLAY_PAUSE=􀊈
+SPOTIFY_NEXT=􀊐
+SPOTIFY_SHUFFLE=􀊝
+SPOTIFY_REPEAT=􀊞
+
+# Yabai Icons
+YABAI_STACK=􀏭
+YABAI_FULLSCREEN_ZOOM=􀏜
+YABAI_PARENT_ZOOM=􀥃
+YABAI_FLOAT=􀢌
+YABAI_GRID=􀧍
+
+# System Monitor Icons (Nerd Font)
+ICON_CPU=
+ICON_MEM=
+ICON_DISK=
+ICON_WIFI=
+ICON_VPN=
+ICON_BT=
+ICON_NET=
+ICON_BAT=
+ICON_CLOCK=
+ICON_LAYOUT=
+ICON_AIRPODS=
+ICON_AUDIO=
+ICON_SYS=
