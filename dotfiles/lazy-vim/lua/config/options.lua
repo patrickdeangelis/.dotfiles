@@ -25,7 +25,7 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
-vim.opt.guifont:append('FiraCode Nerd Font:h12')
+vim.opt.guifont = 'DankMono Nerd Font:h12'
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
